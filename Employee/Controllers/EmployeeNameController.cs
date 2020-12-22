@@ -14,7 +14,7 @@ namespace Employee
     [ApiController]
     public class EmployeeNameController : ControllerBase
     {
-        // GET: api/<ValuesController>
+        // HTTP GET: api/<ValuesController> 
         [HttpGet]
         public IEnumerable<EmployeeName> Get()
         {
