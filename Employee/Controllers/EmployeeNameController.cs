@@ -26,31 +26,53 @@ namespace Employee
 
         // GET api/<ValuesController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public EmployeeName Get(int id)
         {
-            return "value";
+            using (var context = new Context.BlogContext())
+            {
+                return context.EmployeeNames.Where(e => e.Id == id).FirstOrDefault();
+            }
         }
 
         // POST api/<ValuesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(EmployeeName value)
         {
             using (var context = new Context.BlogContext())
             {
-
+                value.Id = new Random().Next(1, 100000);
+                context.EmployeeNames.Add(value);
+                context.SaveChanges();
             }
         }
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, EmployeeName value)
         {
+            using (var context = new Context.BlogContext())
+            {
+                //context.EmployeeNames.Remove
+                var updateentity = context.EmployeeNames.Where(e => e.Id == id).FirstOrDefault();
+                updateentity.Designation = value.Designation;
+                updateentity.Lastname = value.Lastname;
+                updateentity.Name = value.Name;
+                context.EmployeeNames.Update(updateentity);
+                context.SaveChanges();
+            }
         }
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            using (var context = new Context.BlogContext())
+            {
+                //context.EmployeeNames.Remove
+                var deleteentity = context.EmployeeNames.Where(e => e.Id == id).FirstOrDefault();
+                context.EmployeeNames.Remove(deleteentity);
+                context.SaveChanges();
+            }
         }
     }
 }

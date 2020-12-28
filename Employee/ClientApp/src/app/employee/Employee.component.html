@@ -4,21 +4,87 @@
 
 <p *ngIf="!employees"><em>Loading...</em></p>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="employees">
-  <thead>
+<form [formGroup]="employeeForm" (ngSubmit)="onFormSubmit(employeeForm.value)">
+  <table>
+    <!--<tr>
+      <td class="tbl1">
+        <mat-form-field class="demo-full-width">
+          <input formControlName="EmpName" matTooltip="Enter Employee first Name" matInput placeholder="Employee first Name">
+        </mat-form-field>
+        <mat-error>
+          <span *ngIf="!employeeForm.get('EmpName').value && employeeForm.get('EmpName').touched"></span>
+        </mat-error>
+      </td>
+      <td class="tbl1">
+        <mat-form-field class="demo-full-width">
+          <input formControlName="EmpLastName" matTooltip="Enter Employee last Name" matInput placeholder="Employee last Name">
+        </mat-form-field>
+        <mat-error>
+          <span *ngIf="!employeeForm.get('EmpLastName').value && employeeForm.get('EmpLastName').touched"></span>
+        </mat-error>
+      </td>
+    </tr>
     <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Designation</th>
-      <th>Last name</th>
+      <td class="tbl1">
+        <mat-form-field class="demo-full-width">
+          <input matTooltip="Enter Desgination" formControlName="EmpDesgination" matInput placeholder="Employee Desgination">
+        </mat-form-field>
+        <mat-error>
+          <span *ngIf="!employeeForm.get('EmpDesgination').value && employeeForm.get('EmpDesgination').touched"></span>
+        </mat-error>
+      </td>
+
+    </tr>-->
+
+    <tr>
+      <td class="tbl1">
+        <input formControlName="Name" matTooltip="Enter Employee first name" matInput placeholder="Employee first name">
+      </td>
+      <td class="tbl1">
+        <input formControlName="LastName" matTooltip="Enter Employee last name" matInput placeholder="Employee last name">
+      </td>
+      <td class="tbl1">
+        <input formControlName="Designation" matTooltip="Enter Employee Desgination" matInput placeholder="Employee Desgination">
+      </td>
     </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let employee of employees">
-      <td>{{ employee.Id }}</td>
-      <td>{{ employee.name }}</td>
-      <td>{{ employee.designation }}</td>
-      <td>{{ employee.lastname }}</td>
+
+    <tr>
+      <td></td>
+      <td class="content-center">
+        <button type="submit" mat-raised-button color="accent" matTooltip="Click Submit Button" [disabled]="!employeeForm.valid">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="reset" mat-raised-button color="accent" matTooltip="Click Reset Button" (click)="resetForm()">Reset</button>
+      </td>
+      <td>
+        <p *ngIf="dataSaved" style="color:rgb(0, 128, 0);font-size:20px;font-weight:bold" Class="success" align="left">
+          {{massage}}
+        </p>
+      </td>
     </tr>
-  </tbody>
-</table>
+  </table>
+  <br><br>
+
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="employees">
+    <thead>
+      <tr>
+        <th>Employee ID</th>
+        <th>Name</th>
+        <th>Designation</th>
+        <th>Last name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees">
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.designation }}</td>
+        <td>{{ employee.lastname }}</td>
+        <td class="tbl2">
+          <button type="button" class="btn btn-info" matTooltip="Click Edit Button" (click)="loadEmployeeToEdit(employee.id)">Edit</button>
+        </td>
+        <td class="tbl2">
+          <button type="button" class="btn btn-danger" matTooltip="Click Delete Button" (click)="deleteEmployee(employee.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

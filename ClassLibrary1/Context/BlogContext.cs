@@ -36,7 +36,7 @@ namespace Context
             {
                 entity.ToTable("employee_name");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                //entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Designation)
                     .HasMaxLength(50)
@@ -49,6 +49,9 @@ namespace Context
                 entity.Property(e => e.Name)
                     .HasMaxLength(50)
                     .HasColumnName("name");
+
+                entity.Property(e => e.Id)                   
+                   .HasColumnName("Id");
             });
 
             OnModelCreatingPartial(modelBuilder);
